@@ -107,6 +107,11 @@
         left:100px;
         top:300px;
        }
+       .col{
+        position: absolute;
+        left:100px;
+        top:250px;
+       }
       
        
     </style>
@@ -117,7 +122,10 @@
     
     
   <div class="section">
-    <div class="tablo">
+    <div class="col">
+      <button class="btn btn-primary" id="veri-oku">Veri Güncelle</button>
+     </div>
+     <div class="tablo">
         <table class="table table-striped">
             <thead>
               <tr>
@@ -145,6 +153,36 @@
             </tbody>
           </table>
         </div>
+        <script>   
+          const btnCek=document.querySelector("#veri-oku");
+          const tbListe=document.querySelector("#liste");
+           btnCek.addEventListener("click",function(){
+               fetch('./dosya.json') 
+                   .then(cevap => cevap.json()) 
+                   .then(veri => {
+                   
+                       tbListe.innerHTML="";
+                   
+                       veri.forEach(function(element,index){
+                           const satir = document.createElement("tr");
+                           const hucre1 = document.createElement("td");
+                           const hucre2 = document.createElement("td");
+                           const hucre3 = document.createElement("td");
+                           
+                           hucre1.textContent=element.prjno
+                           hucre2.textContent=element.prjad
+                           hucre3.textContent=element.prjtrh
+                           
+                           satir.appendChild(hucre1)
+                           satir.appendChild(hucre2)
+                           satir.appendChild(hucre3)
+                           
+                           tbListe.appendChild(satir)
+                       });
+                       
+                   });
+           });
+       </script>
       <div class="circle"></div>
         <div class="header">
             <a href="#" class="logo" ><img src="logo4.png"style="height:150px; width= 150px";></a> 
